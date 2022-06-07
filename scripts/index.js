@@ -7,8 +7,8 @@ let profileJob = document.querySelector('.profile__subtitle');
 let formElement = document.querySelector('.popup__form');
 let submitButton = document.querySelector ('.popup__form-button');
 // Находим поля формы в DOM
-let nameInput = document.querySelector('.popup__form_input_name');
-let jobInput = document.querySelector('.popup__form_input_job');
+let nameInput = document.querySelector('.popup__form-input_value_name');
+let jobInput = document.querySelector('.popup__form-input_value_job');
 
 
 function openPopup () {
