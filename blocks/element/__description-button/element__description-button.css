@@ -1,0 +1,17 @@
+.element__description-button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    background-image: url(../../../project-images/like.svg);
+    background-repeat: no-repeat;
+    align-self: flex-end;
+    width: 22px;
+    height: 19px;
+    cursor: pointer;
+}
+
+.element__description-button:hover {
+    opacity: 0.6;
+}
