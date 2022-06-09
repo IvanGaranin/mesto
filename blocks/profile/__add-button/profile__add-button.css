@@ -12,7 +12,6 @@
     background-image: url(../../../project-images/add-button.svg);
     background-repeat: no-repeat;
     background-position: center;
-    grid-area: add-button;
     align-self: center;
     justify-self: flex-end;
     border-radius: 2px;

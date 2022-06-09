@@ -6,7 +6,6 @@
     flex-direction: column;
     align-self: center;
     gap: 16px;
-    grid-template: profile;
 }
 
 @media screen and (max-width: 880px) {
