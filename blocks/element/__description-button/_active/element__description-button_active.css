@@ -1,0 +1,6 @@
+.element__description-button_active {
+    background-image: url(../../../../project-images/black-like.svg);
+    background-repeat: no-repeat;
+    width: 22px;
+    height: 19px;
+}

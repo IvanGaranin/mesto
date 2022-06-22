@@ -6,7 +6,7 @@
     padding: 0;
     min-width: 32px;
     min-height: 32px;
-    background-color: #000;
+    background-color: #00000000;
     background-image: url(../../../project-images/close-icon.svg);
     background-repeat: no-repeat;
     background-position: center;

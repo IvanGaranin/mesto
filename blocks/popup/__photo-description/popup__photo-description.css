@@ -1,0 +1,17 @@
+.popup__photo-description {
+    margin: 0;
+    padding: 15px 0 0 0;
+    max-width: 291px;
+    color: #fff;
+    font-family: "Inter", "Arial", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+@media screen and (max-width: 768px) {
+    .popup__photo-description {
+        max-width: 240px;
+    }
+}
