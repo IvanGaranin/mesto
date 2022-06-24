@@ -52,7 +52,11 @@ function openPopup(popup) {
     popup.classList.add('popup_opened');
 };
 
-editButton.addEventListener('click', () => openPopup(editPopup)); //открытие попапа для профиля
+editButton.addEventListener('click', () => {
+    openPopup(editPopup)
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileJob.textContent;
+}); //открытие попапа для профиля
 addButton.addEventListener('click', () => openPopup(addPopup)); //открытие попапа для добавления карточки
 
 function closePopup(popup) {
@@ -108,7 +112,6 @@ function handleEditForm (evt) {
 function submitCardAdd (evt) {
     evt.preventDefault();
     addCards({name: titleInput.value, link: linkInput.value});
-    elementsList.prepend(addCards);
     closePopup(addPopup);
     createForm.reset();
 };
