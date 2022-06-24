@@ -41,107 +41,12 @@
             </section>
             <section class="elements">
                 <ul class="elements__list">
-                    <template id="card">
-                    <li class="element">
-                        <button
-                                class="element__delete-button"
-                                type="button"
-                        ></button>
-                        <img
-                            class="element__photo" src="#" alt="#"
-                        />
-                        <div class="element__description">
-                            <h2 class="element__description-title"></h2>
-                            <button
-                                class="element__description-button"
-                                type="button"
-                            ></button>
-                        </div>
-                    </li>
-                    </template>
-                    <!-- <li class="element">
-                        <button
-                                class="element__delete-button"
-                                type="button"
-                        ></button>
-                        <img
-                            class="element__photo"
-                            src="project-images/elbrus.png"
-                            alt="Фото Эльбруса"
-                        />
-                        <div class="element__description">
-                            <h2 class="element__description-title">Гора Эльбрус</h2>
-                            <button
-                                class="element__description-button element__description-button_active"
-                                type="button"
-                            ></button>
-                        </div>
-                    </li>
-                    <li class="element">
-                        <img
-                            class="element__photo"
-                            src="project-images/dombai.png"
-                            alt="Фото гор Домбай"
-                        />
-                        <div class="element__description">
-                            <h2 class="element__description-title">Домбай</h2>
-                            <button
-                                class="element__description-button"
-                                type="button"
-                            ></button>
-                        </div>
-                    </li>
-                    <li class="element">
-                        <img
-                            class="element__photo"
-                            src="project-images/arhyz.png"
-                            alt="Фото Архыза"
-                        />
-                        <div class="element__description">
-                            <h2 class="element__description-title">Архыз</h2>
-                            <button
-                                class="element__description-button"
-                                type="button"
-                            ></button>
-                        </div>
-                    </li>
-                    <li class="element">
-                        <img
-                            class="element__photo"
-                            src="project-images/kamchatka.png"
-                            alt="Фото Камчатки"
-                        />
-                        <div class="element__description">
-                            <h2 class="element__description-title">Камчатка</h2>
-                            <button
-                                class="element__description-button"
-                                type="button"
-                            ></button>
-                        </div>
-                    </li>
-                    <li class="element">
-                        <img
-                            class="element__photo"
-                            src="project-images/oblast.png"
-                            alt="Фото Владимирской области"
-                        />
-                        <div class="element__description">
-                            <h2 class="element__description-title">Владимир</h2>
-                            <button
-                                class="element__description-button"
-                                type="button"
-                            ></button>
-                        </div>
-                    </li> -->
                 </ul>
             </section>
-            <footer class="footer">
-                <p class="footer__text">© 2022 Mesto Russia</p>
-            </footer>
             <div class="popup popup_edit">
                 <div class="popup__container">
-                    <button class="popup__close-button" type="button"></button>
-                    <form class="popup__form" name="form">
+                    <button class="popup__close-button" id="edit" type="button"></button>
+                    <form class="popup__form" name="edit">
                         <h2 class="popup__form-title">Редактировать профиль</h2>
                         <input
                             class="popup__form-input popup__form-input_value_name"
@@ -163,20 +68,24 @@
             </div>
             <div class="popup popup_add">
                 <div class="popup__container">
-                    <button class="popup__close-button" type="button"></button>
-                    <form class="popup__form popup__form_create" name="form">
+                    <button class="popup__close-button" id="add" type="button"></button>
+                    <form class="popup__form popup__form_create" name="add">
                         <h2 class="popup__form-title">Новое место</h2>
                         <input
                             class="popup__form-input popup__form-input_value_title"
                             name="title"
                             type="text"
-                            value="Название"
+                            value=""
+                            placeholder="Название"
+                            required
                         />
                         <input
                             class="popup__form-input popup__form-input_value_link"
                             name="link"
                             type="url"
-                            value="Ссылка на картинку"
+                            value=""
+                            placeholder="Ссылка на картинку"
+                            required
                         />
                         <button class="popup__form-button" type="submit">
                             Создать
@@ -186,12 +95,30 @@
             </div>
             <div class="popup popup_image">
                 <figure class="popup__container popup__container_photo">
-                    <button class="popup__close-button" type="button"></button>
-                    <img class="popup__photo" src="#" alt="#">
-                    <figcaption class="popup__photo-description">Байкал</figcaption>
+                    <button class="popup__close-button" id="image" type="button"></button>
+                    <img class="popup__photo" src="#" alt="#" />
+                    <figcaption class="popup__photo-description">
+                        Байкал
+                    </figcaption>
                 </figure>
             </div>
         </main>
+        <footer class="footer">
+            <p class="footer__text">© 2022 Mesto Russia</p>
+        </footer>
+        <template id="card">
+            <li class="element">
+                <button class="element__delete-button" type="button"></button>
+                <img class="element__photo" src="#" alt="#" />
+                <div class="element__description">
+                    <h2 class="element__description-title"></h2>
+                    <button
+                        class="element__description-button"
+                        type="button"
+                    ></button>
+                </div>
+            </li>
+        </template>
         <script src="scripts/index.js"></script>
     </body>
 </html>

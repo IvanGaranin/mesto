@@ -3,7 +3,7 @@
     padding: 0;
     font-size: 0;
     font-weight: 0;
-    max-width: 246px;
+    width: 246px;
     display: flex;
     justify-content: space-between;
 }
