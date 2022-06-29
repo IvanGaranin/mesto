@@ -25,6 +25,7 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+const forms = document.querySelectorAll('.popup__container');
 const elementTemplate = document.querySelector('#card').content;
 const popupImage = document.querySelector('.popup__photo');
 const popupText = document.querySelector('.popup__photo-description');
@@ -49,7 +50,10 @@ const linkInput = document.querySelector('.popup__form-input_value_link');
 const titleInput = document.querySelector('.popup__form-input_value_title');
 
 function openPopup(popup) {
+    document.addEventListener('keyup', closeOnEsc);
+    popup.addEventListener('mousedown', closeOnOverlay);
     popup.classList.add('popup_opened');
+    enableValidation(settings);
 };
 
 editButton.addEventListener('click', () => {
@@ -61,6 +65,8 @@ addButton.addEventListener('click', () => openPopup(addPopup)); //открыти
 
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keyup', () => closeOnEsc(evt));
+    popup.removeEventListener('mousedown', () => closeOnOverlay(evt));
 }
 
 closeEditButton.addEventListener('click', () => closePopup(editPopup));
@@ -123,8 +129,20 @@ editForm.addEventListener('submit', handleEditForm); // отправка дан�
 createForm.addEventListener('submit', submitCardAdd);
 
 
-// popup.addEventListener('click', function(e) {
-//     if(e.target === e.currentTarget) {
-//         closePopup();
-//     }
-// });
+function closeOnOverlay (evt) {
+        if(evt.target === evt.currentTarget) {
+            closePopup(evt.currentTarget);
+        }
+};
+
+function closeOnEsc (evt) {
+    if (evt.key === 'Escape') {
+        closePopup(editPopup);
+        closePopup(addPopup);
+        closePopup(imagePopup);
+    };
+};
+
+editPopup.addEventListener('click', () => closeOnOverlay(editPopup));
+addPopup.addEventListener('click', () => closeOnOverlay(addPopup));
+imagePopup.addEventListener('click',() => closeOnOverlay(imagePopup));
