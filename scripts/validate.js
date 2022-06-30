@@ -4,7 +4,7 @@ const settings = {
     submitButtonSelector: ".popup__form-button",
     inactiveButtonClass: "popup__form-button_disabled",
     inputErrorClass: "popup__form-input_type_error",
-    errorClass: "popup__form-input_error_active",
+    errorClass: "popup__form-error_active"
 };
 
 const showInputError = (formElement, inputElement, errorMessage) => {
@@ -13,13 +13,13 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     errorElement.textContent = errorMessage;
     console.log (errorElement);
     console.log(errorElement.textContent);
-    errorElement.classList.add('popup__form-input_error_active');
+    errorElement.classList.add('popup__form-error_active');
   };
   
   const hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove('popup__form-input_type_error');
-    errorElement.classList.remove('popup__form-input_error_active');
+    errorElement.classList.remove('popup__form-error_active');
     errorElement.textContent = '';
   };
   
@@ -78,5 +78,5 @@ enableValidation({
     submitButtonSelector: ".popup__form-button",
     inactiveButtonClass: "popup__form-button_disabled",
     inputErrorClass: "popup__form-input_type_error",
-    errorClass: "popup__form-input_error_active",
+    errorClass: "popup__form-error_active",
 });
