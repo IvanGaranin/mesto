@@ -27,6 +27,7 @@ const initialCards = [
 ];
 const forms = document.querySelectorAll('.popup__container');
 const elementTemplate = document.querySelector('#card').content;
+const popups = document.querySelectorAll('.popup');
 const popupImage = document.querySelector('.popup__photo');
 const popupText = document.querySelector('.popup__photo-description');
 const editPopup = document.querySelector('.popup_edit');
@@ -49,11 +50,32 @@ const createForm = document.querySelector('.popup__form_create');
 const linkInput = document.querySelector('.popup__form-input_value_link');
 const titleInput = document.querySelector('.popup__form-input_value_title');
 
+const settings = {
+    formSelector: ".popup__form",
+    inputSelector: ".popup__form-input",
+    submitButtonSelector: ".popup__form-button",
+    inactiveButtonClass: "popup__form-button_disabled",
+    inputErrorClass: "popup__form-input_type_error",
+    errorClass: "popup__form-error_active"
+};
+
+const enableValidation = (settings) => {
+    const formList = Array.from(
+        document.querySelectorAll(settings.formSelector)
+    );
+
+    formList.forEach((formElement) => {
+        formElement.addEventListener("submit", (evt) => {
+            evt.preventDefault();
+        });
+        setEventListeners(formElement, settings);
+    });
+};
+
 function openPopup(popup) {
-    document.addEventListener('keyup', closeOnEsc);
+    document.addEventListener('keyup', closeByEscape);
     popup.addEventListener('mousedown', closeOnOverlay);
     popup.classList.add('popup_opened');
-    enableValidation(settings);
 };
 
 editButton.addEventListener('click', () => {
@@ -63,15 +85,52 @@ editButton.addEventListener('click', () => {
 }); //открытие попапа для профиля
 addButton.addEventListener('click', () => openPopup(addPopup)); //открытие попапа для добавления карточки
 
-function closePopup(popup) {
+function closePopup(popup){
     popup.classList.remove('popup_opened');
-    document.removeEventListener('keyup', () => closeOnEsc(evt));
-    popup.removeEventListener('mousedown', () => closeOnOverlay(evt));
+    document.removeEventListener('keyup', closeByEscape);
+    popup.removeEventListener('mousedown', closeOnOverlay);
 }
 
-closeEditButton.addEventListener('click', () => closePopup(editPopup));
+closeEditButton.addEventListener('mouseup', () => closePopup(editPopup));
 closeAddButton.addEventListener('click', () => closePopup(addPopup));
 closeImageButton.addEventListener('click', () => closePopup(imagePopup));
+
+function handleEditForm (evt) {
+    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+    
+    profileName.textContent = nameInput.value;
+    profileJob.textContent = jobInput.value;
+    closePopup(editPopup);// Выберите элементы, куда должны быть вставлены значения полей
+
+    // Вставьте новые значения с помощью textContent
+};
+
+function submitCardAdd (evt) {
+    evt.preventDefault();
+    addCards({name: titleInput.value, link: linkInput.value});
+    closePopup(addPopup);
+    createForm.reset();
+};
+
+
+// Прикрепляем обработчик к форме:
+// он будет следить за событием “submit” - «отправка»
+editForm.addEventListener('submit', handleEditForm); // отправка данных в профиле
+createForm.addEventListener('submit', submitCardAdd);
+
+
+function closeOnOverlay (evt) {
+        if(evt.target === evt.currentTarget) {
+            closePopup(evt.currentTarget);
+        }
+};
+
+function closeByEscape(evt) {
+    if (evt.key === 'Escape') {
+      const openedPopup = document.querySelector('.popup_opened');
+      closePopup(openedPopup);
+    }
+  }
 
 function createCards (name, link) {
     const newElement = elementTemplate.cloneNode(true);
@@ -105,44 +164,3 @@ initialCards.forEach(item => addCards(item)); // перебор массива �
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
-function handleEditForm (evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
-    closePopup(editPopup);// Выберите элементы, куда должны быть вставлены значения полей
-
-    // Вставьте новые значения с помощью textContent
-};
-
-function submitCardAdd (evt) {
-    evt.preventDefault();
-    addCards({name: titleInput.value, link: linkInput.value});
-    closePopup(addPopup);
-    createForm.reset();
-};
-
-
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-editForm.addEventListener('submit', handleEditForm); // отправка данных в профиле
-createForm.addEventListener('submit', submitCardAdd);
-
-
-function closeOnOverlay (evt) {
-        if(evt.target === evt.currentTarget) {
-            closePopup(evt.currentTarget);
-        }
-};
-
-function closeOnEsc (evt) {
-    if (evt.key === 'Escape') {
-        closePopup(editPopup);
-        closePopup(addPopup);
-        closePopup(imagePopup);
-    };
-};
-
-editPopup.addEventListener('click', () => closeOnOverlay(editPopup));
-addPopup.addEventListener('click', () => closeOnOverlay(addPopup));
-imagePopup.addEventListener('click',() => closeOnOverlay(imagePopup));

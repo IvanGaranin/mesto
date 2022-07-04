@@ -1,33 +1,23 @@
-const settings = {
-    formSelector: ".popup__form",
-    inputSelector: ".popup__form-input",
-    submitButtonSelector: ".popup__form-button",
-    inactiveButtonClass: "popup__form-button_disabled",
-    inputErrorClass: "popup__form-input_type_error",
-    errorClass: "popup__form-error_active"
-};
 
-const showInputError = (formElement, inputElement, errorMessage) => {
+const showInputError = (formElement, inputElement, errorMessage, settings) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add('popup__form-input_type_error');
+    inputElement.classList.add(settings.inputErrorClass);
     errorElement.textContent = errorMessage;
-    console.log (errorElement);
-    console.log(errorElement.textContent);
-    errorElement.classList.add('popup__form-error_active');
+    errorElement.classList.add(settings.errorClass);
   };
   
-  const hideInputError = (formElement, inputElement) => {
+  const hideInputError = (formElement, inputElement, settings) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('popup__form-input_type_error');
-    errorElement.classList.remove('popup__form-error_active');
+    inputElement.classList.remove(settings.inputErrorClass);
+    errorElement.classList.remove(settings.errorClass);
     errorElement.textContent = '';
   };
   
   const isValid = (formElement, inputElement) => {
     if (!inputElement.validity.valid) {
-      showInputError(formElement, inputElement, inputElement.validationMessage);
+      showInputError(formElement, inputElement, inputElement.validationMessage, settings);
     } else {
-      hideInputError(formElement, inputElement);
+      hideInputError(formElement, inputElement, settings);
     }
   };
   
@@ -37,40 +27,27 @@ const showInputError = (formElement, inputElement, errorMessage) => {
     })
   }
   
-  const toggleButtonState = (inputList, buttonElement) => {
+  const toggleButtonState = (inputList, buttonElement, settings) => {
     if (hasInvalidInput(inputList)) {
-      buttonElement.classList.add('popup__form-button_disabled');
+      buttonElement.classList.add(settings.inactiveButtonClass);
       buttonElement.setAttribute("disabled", true)
     } else {
-      buttonElement.classList.remove('popup__form-button_disabled');
+      buttonElement.classList.remove(settings.inactiveButtonClass);
       buttonElement.removeAttribute("disabled");
     }
   };
   
-  const setEventListeners = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll('.popup__form-input'));
-    const buttonElement = formElement.querySelector('.popup__form-button');
-    toggleButtonState(inputList, buttonElement);
+  const setEventListeners = (formElement, settings) => {
+    const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+    const buttonElement = formElement.querySelector(settings.submitButtonSelector);
+    toggleButtonState(inputList, buttonElement, settings);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
         isValid(formElement, inputElement);
-        toggleButtonState(inputList, buttonElement);
+        toggleButtonState(inputList, buttonElement, settings);
       });
     });
   };
-
-const enableValidation = (settings) => {
-    const formList = Array.from(
-        document.querySelectorAll(settings.formSelector)
-    );
-
-    formList.forEach((formElement) => {
-        formElement.addEventListener("submit", (evt) => {
-            evt.preventDefault();
-        });
-        setEventListeners(formElement, settings);
-    });
-};
 
 enableValidation({
     formSelector: ".popup__form",
