@@ -36,6 +36,7 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const closeEditButton = document.querySelector('#edit');
 const closeAddButton = document.querySelector('#add');
+const submitButton = document.querySelector('#create');
 const closeImageButton = document.querySelector('#image');
 const profileName = document.querySelector('.profile__title');
 const profileJob = document.querySelector('.profile__subtitle');
@@ -57,19 +58,6 @@ const settings = {
     inactiveButtonClass: "popup__form-button_disabled",
     inputErrorClass: "popup__form-input_type_error",
     errorClass: "popup__form-error_active"
-};
-
-const enableValidation = (settings) => {
-    const formList = Array.from(
-        document.querySelectorAll(settings.formSelector)
-    );
-
-    formList.forEach((formElement) => {
-        formElement.addEventListener("submit", (evt) => {
-            evt.preventDefault();
-        });
-        setEventListeners(formElement, settings);
-    });
 };
 
 function openPopup(popup) {
@@ -110,6 +98,7 @@ function submitCardAdd (evt) {
     addCards({name: titleInput.value, link: linkInput.value});
     closePopup(addPopup);
     createForm.reset();
+    submitButton.setAttribute("disabled", true);
 };
 
 

@@ -1,4 +1,3 @@
-
 const showInputError = (formElement, inputElement, errorMessage, settings) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(settings.inputErrorClass);
@@ -48,6 +47,20 @@ const showInputError = (formElement, inputElement, errorMessage, settings) => {
       });
     });
   };
+
+  
+const enableValidation = (settings) => {
+    const formList = Array.from(
+        document.querySelectorAll(settings.formSelector)
+    );
+
+    formList.forEach((formElement) => {
+        formElement.addEventListener("submit", (evt) => {
+            evt.preventDefault();
+        });
+        setEventListeners(formElement, settings);
+    });
+};
 
 enableValidation({
     formSelector: ".popup__form",
