@@ -99,6 +99,7 @@ function submitCardAdd (evt) {
     closePopup(addPopup);
     createForm.reset();
     submitButton.setAttribute("disabled", true);
+    submitButton.classList.add('popup__form-button_disabled');
 };
 
 
