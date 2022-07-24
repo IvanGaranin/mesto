@@ -1,4 +1,6 @@
-.popup__form-error{
+.popup__form-error {
+    padding: 5px 0 0 0;
+    margin: 0 0 13px 0;
     font-family: "Inter", "Arial", sans-serif;
     font-style: normal;
     font-weight: 400;

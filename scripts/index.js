@@ -117,7 +117,7 @@ function submitCardAdd (evt) {
     elementsList.prepend(addCard({name: titleInput.value, link: linkInput.value}));
     closePopup(popupAdd);
     formCreate.reset();
-    addFormValidator._setEventListeners(formCreate);
+    addFormValidator.resetValidation(formCreate);
 };
 
 
