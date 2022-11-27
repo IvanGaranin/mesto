@@ -1,4 +1,4 @@
-import { profileName, profileJob } from "./Index";
+import { profileName, profileJob } from "../utils/Constants.js";
 
 export default class UserInfo {
     constructor({ profileDefault }) {
