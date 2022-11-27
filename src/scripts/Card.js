@@ -1,9 +1,9 @@
 export class Card {
-    constructor(data, cardSelector, handleOpenImagePopup) {
+    constructor(data, cardSelector, handleCardClick) {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
-        this._handleOpenImagePopup = handleOpenImagePopup;
+        this._handleCardClick = handleCardClick;
     }
     _createCard () {
         const newElement = document
@@ -14,9 +14,10 @@ export class Card {
     
         return newElement;
     };
+    
     _setEventListeners() {
         this._cardImage.addEventListener('click', () => {
-            this._handleOpenImagePopup(this._name, this._link);
+           this._handleCardClick( {name: this._name, link: this._link} );
         });
         this._element.querySelector('.element__description-button').addEventListener('click', (event) => {
             event.target.classList.toggle('element__description-button_active'); // переключатель лайка
@@ -24,7 +25,6 @@ export class Card {
         this._element.querySelector('.element__delete-button').addEventListener('click', (event) => {
             event.target.closest('.element').remove(); // удаление карточки
         });
-
 
     }
     generateCard() {
