@@ -1,13 +1,13 @@
-import {Card} from './Card.js';
-import '../index.css';
-import {FormValidator} from './FormValidator.js';
-import Section from './Section.js';
-import Popup from './Popup.js';
-import PopupWithForm from './PopupWithForm.js';
-import PopupWithImage from './PopupWithImage.js';
-import UserInfo from './UserInfo.js';
+import {Card} from '../components/Card.js';
+import '../pages/index.css';
+import {FormValidator} from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import UserInfo from '../components/UserInfo.js';
 
-import { formEdit, formCreate, buttonEdit, nameInput, jobInput, popupEditProfile, buttonAdd, popupAddCard, popupImage, initialCards, elementsList, settings, profileJob, profileName } from '../utils/Constants.js';
+import { formEdit, formCreate, buttonEdit, nameInput, jobInput, popupEditProfile, buttonAdd, popupAddCard, popupImage, initialCards, settings, profileJob, profileName } from '../utils/Constants.js';
 
 
 const editFormValidator = new FormValidator(settings, formEdit);
@@ -32,7 +32,8 @@ buttonEdit.addEventListener('click', () => {
     nameInput.value = profileValues.name;
     jobInput.value = profileValues.job;
 
-    const popupEdit = new Popup (popupEditProfile);
+    const popupEdit = new Popup (".popup_edit");
+    popupEdit.setEventListeners();
     popupEdit.openPopup();
 });
 
@@ -45,14 +46,15 @@ popupEditForm.setEventListeners();
 
 
 buttonAdd.addEventListener('click', () => {
-    const popupAdd = new Popup(popupAddCard);
+    const popupAdd = new Popup(".popup_add");
+    popupAdd.setEventListeners();
     popupAdd.openPopup();
 })
 
 
 function handleCardClick () {
         const popupWithImage = new PopupWithImage(popupImage);
-        popupWithImage.openImagePopup(this._name, this._link);
+        popupWithImage.openPopup(this._name, this._link);
 };
 
 const addCard = (item) => {
@@ -68,7 +70,7 @@ const cardList = new Section( {
         const element = addCard(item);
         cardList.addItem(element);
     }, }, 
-    elementsList
+    document.querySelector('.elements__list')
 );
 cardList.renderItems();
 
@@ -78,7 +80,7 @@ cardList.renderItems();
 const addForm = new PopupWithForm(popupAddCard, (formData) => {
         const addedCard = new Card(formData, '#card', handleCardClick);
         const addedElement = addedCard.generateCard();
-        elementsList.prepend(addedElement);
+        document.querySelector('.elements__list').prepend(addedElement);
 });
 
 addForm.setEventListeners();

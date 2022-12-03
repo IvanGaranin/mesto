@@ -10,7 +10,7 @@ export default class PopupWithImage extends Popup {
         this._elementImageText = this._popup.querySelector('.popup__photo-description');
     }
 
-    openImagePopup(name, link) {
+    openPopup(name, link) {
         super.openPopup();
 
         this._elementImage.src = link;
@@ -19,12 +19,14 @@ export default class PopupWithImage extends Popup {
         
     }
 
-    closeImagePopup() {
+    closePopup() {
+        super.closePopup();
+
         this._elementImage.src = '';
         this._elementImage.alt = '';
         this._elementImage.textContent = '';
 
-        super.closePopup();
+        
     }
 
 }
