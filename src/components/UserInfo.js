@@ -1,28 +1,23 @@
-import { profileName, profileJob } from "../utils/Constants.js";
+
 
 export default class UserInfo {
-    constructor({ profileDefault }) {
-        this._name = profileDefault.name;
-        this._job = profileDefault.job;
+    constructor({ name, job }) {
+        this._name = document.querySelector(name);
+        this._job = document.querySelector(job);
     }
 
     getUserInfo() {
 
         this._profileList = {
-            name: this._name,
-            job: this._job
+            name: this._name.textContent,
+            job: this._job.textContent
         };
-
-        console.log(this._profileList);
         
         return this._profileList
     }
 
     setUserInfo(formData) {
-        profileName.textContent = formData.name;
-        profileJob.textContent = formData.job;
-
-        
-        
+            this._name.textContent = formData.name;
+            this._job.textContent = formData.job;
     }
 }

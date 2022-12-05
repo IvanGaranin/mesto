@@ -7,7 +7,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 
-import { formEdit, formCreate, buttonEdit, nameInput, jobInput, popupEditProfile, buttonAdd, popupAddCard, popupImage, initialCards, settings, profileJob, profileName } from '../utils/Constants.js';
+import { formEdit, formCreate, buttonEdit, nameInput, jobInput, buttonAdd, initialCards, settings } from '../utils/Constants.js';
 
 
 const editFormValidator = new FormValidator(settings, formEdit);
@@ -17,27 +17,22 @@ const addFormValidator = new FormValidator(settings, formCreate);
 addFormValidator.enableValidation();
 
 
-const profileDefault = {};
-profileDefault.name = profileName.textContent;
-profileDefault.job = profileJob.textContent;
 
-const userEditInfo = new UserInfo( {profileDefault} );
-
-console.log(userEditInfo);
+const userEditInfo = new UserInfo({ name: '.profile__title', job: '.profile__subtitle' });
 
 buttonEdit.addEventListener('click', () => {
     const profileValues = userEditInfo.getUserInfo();
 
-
     nameInput.value = profileValues.name;
     jobInput.value = profileValues.job;
-
-    const popupEdit = new Popup (".popup_edit");
-    popupEdit.setEventListeners();
-    popupEdit.openPopup();
+    popupEditForm.openPopup();
 });
+//     const popupEdit = new Popup ('.popup_edit');
+//     popupEdit.setEventListeners();
+//     popupEdit.openPopup();
+// });
 
-const popupEditForm = new PopupWithForm (popupEditProfile, (formData) => {
+const popupEditForm = new PopupWithForm ('#popup_edit', (formData) => {
     userEditInfo.setUserInfo(formData);
 });
 
@@ -46,14 +41,21 @@ popupEditForm.setEventListeners();
 
 
 buttonAdd.addEventListener('click', () => {
-    const popupAdd = new Popup(".popup_add");
-    popupAdd.setEventListeners();
-    popupAdd.openPopup();
+    addFormValidator.enableValidation();
+    addForm.openPopup();
 })
 
+const addForm = new PopupWithForm('#popup_add', (formData) => {
+    const newCard = addCard(formData);
+    cardList.addItem(newCard);
+});
+
+addForm.setEventListeners();
+
+
+const popupWithImage = new PopupWithImage('#popup_image');
 
 function handleCardClick () {
-        const popupWithImage = new PopupWithImage(popupImage);
         popupWithImage.openPopup(this._name, this._link);
 };
 
@@ -70,18 +72,7 @@ const cardList = new Section( {
         const element = addCard(item);
         cardList.addItem(element);
     }, }, 
-    document.querySelector('.elements__list')
+    '.elements__list'
 );
 cardList.renderItems();
-
-
-
-
-const addForm = new PopupWithForm(popupAddCard, (formData) => {
-        const addedCard = new Card(formData, '#card', handleCardClick);
-        const addedElement = addedCard.generateCard();
-        document.querySelector('.elements__list').prepend(addedElement);
-});
-
-addForm.setEventListeners();
 

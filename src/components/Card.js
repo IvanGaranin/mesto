@@ -14,16 +14,23 @@ export class Card {
     
         return newElement;
     };
+
+    _handleLike() {
+        this._buttonLike.classList.toggle('element__description-button_active');
+    }
     
     _setEventListeners() {
+        this._buttonLike = this._element.querySelector('.element__description-button');
+        this._buttonDelete = this._element.querySelector('.element__delete-button');
+
         this._cardImage.addEventListener('click', () => {
            this._handleCardClick( {name: this._name, link: this._link} );
         });
-        this._element.querySelector('.element__description-button').addEventListener('click', (event) => {
-            event.target.classList.toggle('element__description-button_active'); // переключатель лайка
-        });
-        this._element.querySelector('.element__delete-button').addEventListener('click', (event) => {
-            event.target.closest('.element').remove(); // удаление карточки
+        this._buttonLike.addEventListener('click', () => this._handleLike());
+
+       this._buttonDelete.addEventListener('click', () => {
+            this._element.remove();
+            this._element = null;
         });
 
     }

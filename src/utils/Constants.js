@@ -35,9 +35,9 @@ export const initialCards = [
     }
 ];
 
-export const popupEditProfile = document.querySelector('.popup_edit');
-export const popupAddCard = document.querySelector('.popup_add');
-export const popupImage = document.querySelector('.popup_image');
+// export const popupEditProfile = document.querySelector('.popup_edit');
+// export const popupAddCard = document.querySelector('.popup_add');
+// export const popupImage = document.querySelector('.popup_image');
 // const popupPhoto = document.querySelector('.popup__photo');
 // const popupText = document.querySelector('.popup__photo-description');
 
@@ -50,7 +50,7 @@ export const buttonAdd = document.querySelector('.profile__add-button');
 export const profileName = document.querySelector('.profile__title');
 export const profileJob = document.querySelector('.profile__subtitle');
 
-export const formEdit = popupEditProfile.querySelector('.popup__form');
+export const formEdit = document.querySelector('.popup__form_edit');
 // Находим поля формы в DOM
 export const nameInput = document.querySelector('.popup__form-input_value_name');
 export const jobInput = document.querySelector('.popup__form-input_value_job');
