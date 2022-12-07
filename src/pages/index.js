@@ -27,10 +27,7 @@ buttonEdit.addEventListener('click', () => {
     jobInput.value = profileValues.job;
     popupEditForm.openPopup();
 });
-//     const popupEdit = new Popup ('.popup_edit');
-//     popupEdit.setEventListeners();
-//     popupEdit.openPopup();
-// });
+
 
 const popupEditForm = new PopupWithForm ('#popup_edit', (formData) => {
     userEditInfo.setUserInfo(formData);
@@ -54,6 +51,7 @@ addForm.setEventListeners();
 
 
 const popupWithImage = new PopupWithImage('#popup_image');
+popupWithImage.setEventListeners();
 
 function handleCardClick () {
         popupWithImage.openPopup(this._name, this._link);

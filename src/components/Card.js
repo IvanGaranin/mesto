@@ -18,6 +18,11 @@ export class Card {
     _handleLike() {
         this._buttonLike.classList.toggle('element__description-button_active');
     }
+
+    _handleDelete() {
+        this._element.remove();
+        this._element = null;
+    }
     
     _setEventListeners() {
         this._buttonLike = this._element.querySelector('.element__description-button');
@@ -28,11 +33,7 @@ export class Card {
         });
         this._buttonLike.addEventListener('click', () => this._handleLike());
 
-       this._buttonDelete.addEventListener('click', () => {
-            this._element.remove();
-            this._element = null;
-        });
-
+        this._buttonDelete.addEventListener('click', () => this._handleDelete());
     }
     generateCard() {
         this._element = this._createCard();

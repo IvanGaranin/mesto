@@ -5,10 +5,3 @@
     max-height: 75vh;
     position: relative;
 }
-
-@media screen and (max-width: 768px) {
-    .popup__photo {
-        max-width: 240px;
-        max-height: 299px;
-    }
-}
