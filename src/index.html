@@ -19,11 +19,16 @@
         </header>
         <main class="main">
             <section class="profile">
+                <div class="profile__wrapper">
                 <img
                     class="profile__avatar"
                     src="<%=require('.//project-images/avatar.jpg')%>"
                     alt="Фотография Жак-Ив-Кусто"
                 >
+                <button class="profile__avatar-edit" type="button">
+                    <img class="profile__avatar-pen" src="<%=require('.//project-images/pen.svg')%>">
+                </button>
+                </div>
                 <div class="profile__info">
                     <div class="profile__text">
                         <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -112,6 +117,37 @@
                     <figcaption class="popup__photo-description">
                         Байкал
                     </figcaption>
+                </figure>
+            </div>
+            <div class="popup" id="popup_delete">
+                <figure class="popup__container">
+                    <button class="popup__close-button" id="delete" type="button"></button>
+                    <form class="popup__form popup__form_delete" name="delete" novalidate>
+                        <h2 class="popup__form-title">Вы уверены?</h2>
+                        <button class="popup__form-button" type="submit" id="accept">
+                            Да
+                        </button>
+                    </form>
+                </figure>
+            </div>
+            <div class="popup" id="popup_avatar">
+                <figure class="popup__container">
+                    <button class="popup__close-button" id="add" type="button"></button>
+                    <form class="popup__form popup__form_create" name="add" novalidate>
+                        <h2 class="popup__form-title">Обновить аватар</h2>
+                        <input
+                            id="link-input" class="popup__form-input popup__form-input_value_link"
+                            name="link"
+                            type="url"
+                            value=""
+                            placeholder="Ссылка на новый аватар"
+                            required
+                        />
+                        <span class="link-input-error popup__form-error"></span>
+                        <button class="popup__form-button" type="submit" id="change">
+                            Сохранить
+                        </button>
+                    </form>
                 </figure>
             </div>
         </main>

@@ -7,7 +7,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 
-import { formEdit, formCreate, buttonEdit, nameInput, jobInput, buttonAdd, initialCards, settings } from '../utils/Constants.js';
+import { formEdit, formCreate, buttonEdit, nameInput, jobInput, buttonAdd, initialCards, settings, popupDelete } from '../utils/Constants.js';
 
 
 const editFormValidator = new FormValidator(settings, formEdit);
@@ -35,7 +35,9 @@ const popupEditForm = new PopupWithForm ('#popup_edit', (formData) => {
 
 popupEditForm.setEventListeners();
 
-
+// buttonDelete.addEventListener('click', () => {
+//     popupDelete.openPopup();
+// })
 
 buttonAdd.addEventListener('click', () => {
     addFormValidator.enableValidation();
@@ -73,4 +75,6 @@ const cardList = new Section( {
     '.elements__list'
 );
 cardList.renderItems();
+
+
 

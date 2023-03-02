@@ -44,6 +44,8 @@ export const initialCards = [
 
 export const buttonEdit = document.querySelector('.profile__edit-button');
 export const buttonAdd = document.querySelector('.profile__add-button');
+// export const buttonDelete = document.querySelector('.element__delete-button');
+// export const popupDelete = document.querySelector('.popup_delete');
 // const buttonImageClose = document.querySelector('#image');
 // const buttonEditClose = document.querySelector('#edit');
 // const buttonAddClose = document.querySelector('#add');
