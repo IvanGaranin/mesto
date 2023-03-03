@@ -35,9 +35,11 @@
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__photo/element__photo.css);
 @import url(../blocks/element/__description/element__description.css);
+@import url(../blocks/element/__description-likes/element__description-likes.css);
 @import url(../blocks/element/__description-title/element__description-title.css);
 @import url(../blocks/element/__description-button/element__description-button.css);
 @import url(../blocks/element/__description-button/_active/element__description-button_active.css);
 @import url(../blocks/element/__delete-button/element__delete-button.css);
+@import url(../blocks/element/__count-likes/element__count-likes.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__text/footer__text.css);

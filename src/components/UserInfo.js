@@ -1,23 +1,25 @@
+import { data } from "autoprefixer";
 
 
 export default class UserInfo {
-    constructor({ name, job }) {
-        this._name = document.querySelector(name);
-        this._job = document.querySelector(job);
+    constructor(data) {
+        this._name = data.name;
+        this._about = data.about;
+        this._avatar = data.avatar;        
     }
 
     getUserInfo() {
-
         this._profileList = {
-            name: this._name.textContent,
-            job: this._job.textContent
+            name: this._name,
+            about: this._about,
+            avatar: this._avatar
         };
-        
         return this._profileList
     }
 
-    setUserInfo(formData) {
-            this._name.textContent = formData.name;
-            this._job.textContent = formData.job;
+    setUserInfo() {
+        name: this._name;
+        this._about = data.about;
+        this._avatar = data.avatar;
     }
 }
