@@ -1,12 +1,16 @@
+import { data } from "autoprefixer";
+
 export class Card {
-    constructor(data, cardSelector, handleCardClick) {
+    constructor(data, cardSelector, handleCardClick, api, handleDeleteClick) {
         this._name = data.name;
         this._link = data.link;
+        this._likes = data.likes;
+        this._cardId = data._id;
+        this._owner = data.owner._id;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
-        this._handleLikeClick = handleLikeClick;
+        this._handleDeleteClick = handleDeleteClick;
         this._api = api;
-        this._cardId = data._id;
     }
     _createCard() {
         const newElement = document
@@ -16,33 +20,33 @@ export class Card {
 
         return newElement;
     }
-
     _handleLike() {
-        console.log(this._cardId);
-        if (this._buttonLike.contains("element__description-button_active")) {
+        if (
+            this._buttonLike.classList.contains(
+                "element__description-button_active"
+            )
+        ) {
             this._api.dislikeCard(this._cardId).then((data) => {
-                this._elementCount = document.querySelector(
+                this._element.querySelector(
                     ".element__count-likes"
-                );
-                this._elementCount.textContent = data.lenght;
-                this._buttonLike.classList.add(
-                    "element__description-button_active"
-                );
-            });
-        } else {
-            this._api.likeCard(this._cardId).then((data) => {
-                this._elementCount = document.querySelector(
-                    ".element__count-likes"
-                );
-                this._elementCount.textContent = data.lenght;
+                ).textContent = data.likes.length;
                 this._buttonLike.classList.remove(
                     "element__description-button_active"
                 );
-            });
+            }) .catch(() => console.log('Что-то пошло не так'))
+        } else {
+            this._api.likeCard(this._cardId).then((data) => {
+                this._element.querySelector(
+                    ".element__count-likes"
+                ).textContent = data.likes.length;
+                this._buttonLike.classList.add(
+                    "element__description-button_active"
+                );
+            }) .catch(() => console.log('Что-то пошло не так')) 
         }
     }
 
-    _handleDelete() {
+    _handleDeleteClick() {
         this._element.remove();
         this._element = null;
     }
@@ -61,7 +65,7 @@ export class Card {
         this._buttonLike.addEventListener("click", () => this._handleLike());
 
         this._buttonDelete.addEventListener("click", () =>
-            this._handleDelete()
+            this._handleDeleteClick(this._element)
         );
     }
     generateCard() {
@@ -71,6 +75,15 @@ export class Card {
         this._cardImage.alt = this._name;
         this._element.querySelector(".element__description-title").innerText =
             this._name;
+            if(this._likes.length > 0) {
+                this._element.querySelector(".element__count-likes").textContent = 
+                this._likes.length
+            } else {
+                this._element.querySelector(".element__count-likes").textContent =
+                '0'; 
+            }
+
+        
 
         this._setEventListeners();
 

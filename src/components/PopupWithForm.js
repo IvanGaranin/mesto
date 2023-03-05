@@ -1,4 +1,5 @@
 import Popup from "./Popup";
+import { buttonLoading } from "../utils/Constants";
 
 export default class PopupWithForm extends Popup {
     constructor(selector, handleFormSubmit) {
@@ -33,6 +34,7 @@ export default class PopupWithForm extends Popup {
             evt.preventDefault();
 
             this._handleFormSubmit(this._getInputValues());
+            buttonLoading(true, '#create', true);
             this.closePopup();
           });
     }

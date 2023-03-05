@@ -20,7 +20,32 @@ export const formEdit = document.querySelector('.popup__form_edit');
 // Находим поля формы в DOM
 export const nameInput = document.querySelector('.popup__form-input_value_name');
 export const jobInput = document.querySelector('.popup__form-input_value_job');
-export const avatar = document.querySelector('.profile__avatar');
+export const myAvatar = document.querySelector('.profile__avatar');
 
 export const formCreate = document.querySelector('.popup__form_create');
 export const buttonDelete = document.querySelector('.element__delete-button');
+export const buttonEditProfile = document.querySelector('.profile__avatar-edit');
+export const formAvatar = document.querySelector('.popup__form_avatar');
+export const avatarLink = document.querySelector('.popup__avatar-link');
+
+export function buttonLoading(isLoading, buttonId, confirmationForm) {
+    const button = document.querySelector(buttonId);
+
+    if(isLoading) {
+        button.disabled = true;
+
+        if (confirmationForm) {
+            button.textContent = 'Сохранение...';
+        } else {
+            button.textContent = 'Удаление...'
+        }
+    } else {
+        button.disabled = false;
+        
+        if(confirmationForm) {
+            button.textContent = 'Сохранить';
+        } else {
+            button.textContent = 'Да';
+        }
+    }
+}

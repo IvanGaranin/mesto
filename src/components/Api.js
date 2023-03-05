@@ -15,7 +15,7 @@ export default class Api {
     }
 
     getInitialCards() {
-        return fetch(this.baseUrl + `cards`, {
+        return fetch(this.baseUrl + `/cards`,{
             headers: this.headers
         })
         .then(handleResponse)
@@ -25,7 +25,7 @@ export default class Api {
     }
 
     getProfileInfo() {
-        return fetch(this.baseUrl + `users` + `/me`, {
+        return fetch(this.baseUrl + `/users` + `/me`, {
             headers: this.headers
         })
         .then(handleResponse)
@@ -35,7 +35,7 @@ export default class Api {
     }
 
     editProfileInfo(data) {
-        return fetch(this.baseUrl + `users` + `/me`, {
+        return fetch(this.baseUrl + `/users` + `/me`, {
             method: 'PATCH',
             headers: this.headers,
             body: JSON.stringify(data)
@@ -47,7 +47,7 @@ export default class Api {
     }
 
     addNewCard(data) {
-        return fetch(this.baseUrl + `cards`, {
+        return fetch(this.baseUrl + `/cards`, {
             method:'POST',
             headers:this.headers,
             body: JSON.stringify(data)
@@ -71,7 +71,7 @@ export default class Api {
 
     likeCard(cardId) {
         console.log(cardId)
-        return fetch(`${this.baseUrl}cards/${cardId}/likes`, {
+        return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
             method:'PUT',
             headers:this.headers
         })
@@ -81,9 +81,9 @@ export default class Api {
         })
     }
 
-    dislikeCard(cardId) {
-        console.log(cardId)
-        return fetch(`${this.baseUrl}cards/${cardId}/likes`, {
+    dislikeCard(_id) {
+        console.log(_id)
+        return fetch(`${this.baseUrl}/cards/${_id}/likes`, {
             method:'DELETE',
             headers:this.headers
         })

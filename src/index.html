@@ -23,7 +23,7 @@
                 <img
                     class="profile__avatar"
                     src="<%=require('.//project-images/avatar.jpg')%>"
-                    alt="Фотография Жак-Ив-Кусто"
+                    alt="Фотография Фото вашей аватарки"
                 >
                 <button class="profile__avatar-edit" type="button">
                     <img class="profile__avatar-pen" src="<%=require('.//project-images/pen.svg')%>">
@@ -132,11 +132,11 @@
             </div>
             <div class="popup" id="popup_avatar">
                 <figure class="popup__container">
-                    <button class="popup__close-button" id="add" type="button"></button>
-                    <form class="popup__form popup__form_create" name="add" novalidate>
+                    <button class="popup__close-button" id="avatar" type="button"></button>
+                    <form class="popup__form popup__form_avatar" name="avatar" novalidate>
                         <h2 class="popup__form-title">Обновить аватар</h2>
                         <input
-                            id="link-input" class="popup__form-input popup__form-input_value_link"
+                            id="link-input" class="popup__form-input popup__form-input_value_link popup__avatar-link"
                             name="link"
                             type="url"
                             value=""
