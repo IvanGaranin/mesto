@@ -20,7 +20,7 @@ export const formEdit = document.querySelector('.popup__form_edit');
 // Находим поля формы в DOM
 export const nameInput = document.querySelector('.popup__form-input_value_name');
 export const jobInput = document.querySelector('.popup__form-input_value_job');
-export const avatar = document.querySelector('.profile__avatar').src;
+export const avatar = document.querySelector('.profile__avatar');
 
 export const formCreate = document.querySelector('.popup__form_create');
 export const buttonDelete = document.querySelector('.element__delete-button');

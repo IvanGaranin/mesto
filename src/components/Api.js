@@ -1,4 +1,4 @@
-import { data } from "autoprefixer";
+
 
 const handleResponse = (res) => {
     if (res.ok) {
@@ -15,7 +15,7 @@ export default class Api {
     }
 
     getInitialCards() {
-        return fetch(this.baseUrl + `/cards`, {
+        return fetch(this.baseUrl + `cards`, {
             headers: this.headers
         })
         .then(handleResponse)
@@ -34,11 +34,11 @@ export default class Api {
         })
     }
 
-    editProfileInfo() {
-        return fetch(this.baseUrl + `/users` + `/me`, {
+    editProfileInfo(data) {
+        return fetch(this.baseUrl + `users` + `/me`, {
             method: 'PATCH',
             headers: this.headers,
-            body: JSON.stringify()
+            body: JSON.stringify(data)
         })
             .then(handleResponse)
             .catch(err => {
@@ -47,7 +47,7 @@ export default class Api {
     }
 
     addNewCard(data) {
-        return fetch(this.baseUrl + `/cards`, {
+        return fetch(this.baseUrl + `cards`, {
             method:'POST',
             headers:this.headers,
             body: JSON.stringify(data)
@@ -70,7 +70,8 @@ export default class Api {
     }
 
     likeCard(cardId) {
-        return fetch(this.baseUrl + `/cards`+ `/${cardId}` + `/likes`, {
+        console.log(cardId)
+        return fetch(`${this.baseUrl}cards/${cardId}/likes`, {
             method:'PUT',
             headers:this.headers
         })
@@ -81,7 +82,8 @@ export default class Api {
     }
 
     dislikeCard(cardId) {
-        return fetch(this.baseUrl + `/cards`+ `/${cardId}` + `/likes`, {
+        console.log(cardId)
+        return fetch(`${this.baseUrl}cards/${cardId}/likes`, {
             method:'DELETE',
             headers:this.headers
         })

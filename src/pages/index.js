@@ -8,8 +8,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
-import { formEdit, formCreate, buttonEdit, nameInput, jobInput, buttonAdd, settings, buttonDelete, popupDelete, avatar} from '../utils/Constants.js';
-import { data } from 'autoprefixer';
+import { formEdit, formCreate, buttonEdit, nameInput, jobInput, buttonAdd, settings, buttonDelete, popupDelete, avatar, profileJob, profileName, profile} from '../utils/Constants.js';
 
 
 const api = new Api({
@@ -18,111 +17,61 @@ const api = new Api({
       authorization: '3a48a443-c581-4331-866e-3f33303c8654',
       'Content-Type': 'application/json'
     }
-  }); 
-
-api.getInitialCards()
-buttonEdit.addEventListener('click', () => {
-    api.getProfileInfo()
-        .then((data) => {
-            const user = new UserInfo(data)
-            user.getUserInfo();
-            console.log(user.getUserInfo());
-            nameInput.value = data.name;
-            jobInput.value = data.about;
-            popupEditForm.openPopup();
-        })
-        .catch(() => console.log('Something went wrong'))
-}); 
-
-const popupEditForm = new PopupWithForm ('#popup_edit', () => { 
-    api.getProfileInfo()
-        .then((data) => {
-            const newUser = new UserInfo(data)
-            console.log(newUser)
-            newUser.setUserInfo()
-            console.log(newUser.setUserInfo()); 
-            api.editProfileInfo()  
-        }) 
-    
 });
 
+  let cardList = null;
+
+
+
+api.getInitialCards()
+  .then((data) => {
+    const myArray = data
+    myArray.reverse()
+    cardList = new Section({
+        items: myArray,
+        renderer: (data) => {
+            const element = addCard(data);
+            cardList.addItem(element);
+        }
+    }, '.elements__list')
+    cardList.renderItems()
+    })
+
+    const addCard = (data) => {
+        console.log(data);
+        const card = new Card(data, '#card', (data) => {
+            const popupWithImage = new PopupWithImage('#popup_image');
+                popupWithImage.setEventListeners();
+                popupWithImage.openPopup({ name: data.name, link: data.link })
+        });
+        const cardElement = card.generateCard(data)
+        return cardElement
+    }
+
+api.getProfileInfo()
+  .then((data) => {
+   profileName.textContent = data.name,
+   profileJob.textContent = data.about,
+   avatar.src = data.avatar
+  })
+  .catch(() => console.log('Что-то пошло не так'))
+
+buttonEdit.addEventListener('click', () => {
+        nameInput.value = profileName.textContent;
+        jobInput.value = profileJob.textContent;
+        popupEditForm.openPopup();
+})
+
+const popupEditForm = new PopupWithForm ('#popup_edit', () => {
+    const newUser = new UserInfo({ name: nameInput.value, about: jobInput.value });
+    
+    const user = newUser.getUserInfo();
+    api.editProfileInfo({ name: user.name, about: user.about })
+    profileName.textContent = user.name;
+    profileJob.textContent = user.about;
+
+})
 popupEditForm.setEventListeners();
-
-// buttonEdit.addEventListener('click', (data) => {
-//     nameInput.value = data.name;
-//     jobInput.value = data.about;
-//     popupEditForm.openPopup();
-// }); 
- 
-// const popupEditForm = new PopupWithForm ('#popup_edit', () => {
-//     const userEditInfo = new UserInfo(data);
-//     userEditInfo.getUserInfo(); 
-// });
-//             .catch(() => console.log('Something went wrong'))
-                //    
-
-
-//     const popupEditForm = new PopupWithForm ('#popup_edit', (data) => {
-//         const userEditInfo = new UserInfo(data);
-//         userEditInfo.getUserInfo();
-//         });
-//    userEditInfo.setUserInfo(data);
-//         popupEditForm.setEventListeners(data);   
-//         api.editProfileInfo()
-//             .then((res) => {
-//                 console.log(res);
-//             })
-//             .catch(() => console.log('Something went wrong')) 
-
-const editFormValidator = new FormValidator(settings, formEdit);
-editFormValidator.enableValidation();
-
-const addFormValidator = new FormValidator(settings, formCreate);
-addFormValidator.enableValidation();
-
-// buttonEdit.addEventListener('click', () => {
-//     const profileValues = userEditInfo.getUserInfo();
-
-//     nameInput.value = profileValues.name;
-//     jobInput.value = profileValues.job;
-//     popupEditForm.openPopup();
-// });
-
-
-
-
-buttonAdd.addEventListener('click', () => {
-    addFormValidator.enableValidation();
-    addForm.openPopup();
-})
-
-buttonDelete.addEventListener('click', () => {
-    popupDelete.openPopup();
-})
-
-const addCard = (data) => {
-    const card = new Card(data, '#card', handleCardClick);
-    const cardElement = card.generateCard();
-
-    return cardElement;
-};
-
-const cardList = new Section( {
-    items: (data),
-    renderer: (data) => {
-        const element = addCard(data);
-        cardList.addItem(element);
-    }, }, 
-    '.elements__list'
-);
-cardList.renderItems();
-
-const popupWithImage = new PopupWithImage('#popup_image');
-popupWithImage.setEventListeners();
-
-function handleCardClick () {
-    popupWithImage.openPopup(this._name, this._link);
-};
 
 buttonAdd.addEventListener('click', () => {
     addFormValidator.enableValidation();
@@ -131,7 +80,38 @@ buttonAdd.addEventListener('click', () => {
 
 const addForm = new PopupWithForm('#popup_add', (formData) => {
     const newCard = addCard(formData);
+    api.addNewCard({ name: formData.name, link: formData.link })
     cardList.addItem(newCard);
 });
-
 addForm.setEventListeners();
+
+
+api.likeCard()
+    .then((data) => {
+        
+    })
+
+const editFormValidator = new FormValidator(settings, formEdit);
+editFormValidator.enableValidation();
+
+const addFormValidator = new FormValidator(settings, formCreate);
+addFormValidator.enableValidation();
+
+
+
+
+
+
+buttonDelete.addEventListener('click', () => {
+    popupDelete.openPopup();
+})
+
+// const addCard = (data) => {
+//     const card = new Card(data, '#card', handleCardClick);
+//     const cardElement = card.generateCard();
+
+//     return cardElement;
+// };
+
+const popupWithImage = new PopupWithImage('#popup_image');
+popupWithImage.setEventListeners();
